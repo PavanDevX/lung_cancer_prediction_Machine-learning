@@ -1,0 +1,967 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "data = pd.read_csv(\"/content/survey lung cancer.csv\")"
+      ],
+      "metadata": {
+        "id": "O2RFvs54KXNh",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 144
+        },
+        "outputId": "9d9f8eef-1a7c-48d5-b097-7d812a9e0c91"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'pd' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-4-67417ad52659>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdata\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"/content/survey lung cancer.csv\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'pd' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.shape"
+      ],
+      "metadata": {
+        "id": "Sn7iQzB-KW72",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 144
+        },
+        "outputId": "931e1c25-013b-419c-c798-09e8c00e8d9c"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'data' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-5-047ed65ff157>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdata\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshape\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'data' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "e4j6QkvtEbCj"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.info()"
+      ],
+      "metadata": {
+        "id": "zMcEXgbWKuO7"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.head()"
+      ],
+      "metadata": {
+        "id": "m-CbkXbUKxn4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.describe()"
+      ],
+      "metadata": {
+        "id": "MsVxQtEMKyww"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.isnull().sum()"
+      ],
+      "metadata": {
+        "id": "Rb889b9AKxSw"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.preprocessing import LabelEncoder\n",
+        "\n",
+        "label_encoder = LabelEncoder()\n",
+        "binary_columns = ['GENDER', 'LUNG_CANCER']\n",
+        "\n",
+        "for col in binary_columns:\n",
+        "    data[col] = label_encoder.fit_transform(data[col].astype(str))\n",
+        "\n",
+        "data.head()\n"
+      ],
+      "metadata": {
+        "id": "hD_XDn_KLfjG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "cancer_counts = data['LUNG_CANCER'].value_counts()\n",
+        "print(\"Lung Cancer distribution:\\n\", cancer_counts)\n",
+        "\n",
+        "\n",
+        "plt.figure(figsize=(6, 4))\n",
+        "sns.countplot(x='LUNG_CANCER', data=data)\n",
+        "plt.title('Lung Cancer Distribution')\n",
+        "plt.xlabel('Lung Cancer')\n",
+        "plt.ylabel('Count')\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "yS6RvYPOrGIQ",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 216
+        },
+        "outputId": "3512abac-1208-4274-ffe6-f06912238eda"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'data' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-3-0b78529ccf50>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mcancer_counts\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdata\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'LUNG_CANCER'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mvalue_counts\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Lung Cancer distribution:\\n\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcancer_counts\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mplt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfigure\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfigsize\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m6\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m4\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'data' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import plotly.express as px\n",
+        "\n",
+        "fig = px.pie(data,\n",
+        "             names='LUNG_CANCER',\n",
+        "             hole=0.5,\n",
+        "             color_discrete_sequence=[\"firebrick\", \"green\"])\n",
+        "\n",
+        "fig.show()\n"
+      ],
+      "metadata": {
+        "id": "PtufZLPs2r81"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from imblearn.over_sampling import SMOTE\n",
+        "\n",
+        "X = data.drop('LUNG_CANCER', axis=1)\n",
+        "y = data['LUNG_CANCER']\n",
+        "\n",
+        "smote = SMOTE(random_state=42)\n",
+        "X_resampled, y_resampled = smote.fit_resample(X, y)\n",
+        "\n",
+        "new_counts = y_resampled.value_counts()\n",
+        "print(\"New Lung Cancer distribution after SMOTE:\\n\", new_counts)\n"
+      ],
+      "metadata": {
+        "id": "8HTTJ-NMrj3T"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "resampled_data = pd.DataFrame(X_resampled, columns=X.columns)\n",
+        "resampled_data['Lung Cancer'] = y_resampled\n",
+        "plt.figure(figsize=(6, 4))\n",
+        "sns.countplot(x='Lung Cancer', data=resampled_data)\n",
+        "plt.title('Lung Cancer Distribution after smote')\n",
+        "plt.xlabel('Lung Cancer')\n",
+        "plt.ylabel('Count')\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "4uvhCGKrtNL9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "def detect_outliers_iqr(data):\n",
+        "    numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns\n",
+        "    outliers = {}\n",
+        "\n",
+        "    for col in numerical_cols:\n",
+        "        Q1 = data[col].quantile(0.25)\n",
+        "        Q3 = data[col].quantile(0.75)\n",
+        "        IQR = Q3 - Q1\n",
+        "        lower_bound = Q1 - 1.5 * IQR\n",
+        "        upper_bound = Q3 + 1.5 * IQR\n",
+        "\n",
+        "        outlier_indices = data[(data[col] < lower_bound) | (data[col] > upper_bound)].index\n",
+        "        outliers[col] = outlier_indices.tolist()\n",
+        "\n",
+        "    return outliers\n",
+        "\n",
+        "\n",
+        "outliers = detect_outliers_iqr(data)\n",
+        "print(\"Outliers detected in each numerical feature:\")\n",
+        "for feature, indices in outliers.items():\n",
+        "    print(f\"{feature}: {len(indices)} outliers\")\n"
+      ],
+      "metadata": {
+        "id": "PaH12b7BvNrK"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "numerical_cols = ['AGE', 'SMOKING', 'WHEEZING',\n",
+        "                  'ALCOHOL CONSUMING', 'COUGHING', 'SHORTNESS OF BREATH',\n",
+        "                  'SWALLOWING DIFFICULTY', 'CHEST PAIN']\n",
+        "\n",
+        "def cap_outliers(df, columns):\n",
+        "    for col in columns:\n",
+        "        cap_value = df[col].quantile(0.95)\n",
+        "        df[col] = np.where(df[col] > cap_value, cap_value, df[col])\n",
+        "        floor_value = df[col].quantile(0.05)\n",
+        "        df[col] = np.where(df[col] < floor_value, floor_value, df[col])\n",
+        "    return df\n",
+        "\n",
+        "data = cap_outliers(data, numerical_cols)\n",
+        "\n",
+        "for col in numerical_cols:\n",
+        "    print(f'After handling outliers, {col} outliers:')\n",
+        "    outliers_count = ((data[col] > data[col].quantile(0.95)) | (data[col] < data[col].quantile(0.05))).sum()\n",
+        "    print(f'  {outliers_count} outliers remain\\n')\n"
+      ],
+      "metadata": {
+        "id": "qjelaWTwv1Ey"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "numerical_cols = data.select_dtypes(include=['float64', 'int']).columns.tolist()\n",
+        "\n",
+        "scaler = StandardScaler()\n",
+        "\n",
+        "data[numerical_cols] = scaler.fit_transform(data[numerical_cols])\n",
+        "print(data[numerical_cols].head())"
+      ],
+      "metadata": {
+        "id": "He_xSQzMzpVR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data.corr()"
+      ],
+      "metadata": {
+        "id": "D9mzq1K6Kar4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "correlation_matrix = data.corr()\n",
+        "\n",
+        "plt.figure(figsize=(12, 10))\n",
+        "sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=\".2f\")\n",
+        "plt.title(\"Correlation Matrix of Features with Target (LUNG_CANCER)\")\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "D8F4Ih_QMR18"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.linear_model import LogisticRegression\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from xgboost import XGBClassifier\n",
+        "\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=42)\n"
+      ],
+      "metadata": {
+        "id": "kjwbfcaEz_u-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "knn_model = KNeighborsClassifier()\n",
+        "knn_model.fit(X_train, y_train)\n",
+        "y_pred_knn = knn_model.predict(X_test)\n",
+        "accuracy_knn = accuracy_score(y_test, y_pred_knn)\n",
+        "precision_knn = precision_score(y_test, y_pred_knn)\n",
+        "recall_knn = recall_score(y_test, y_pred_knn)\n",
+        "f1_knn = f1_score(y_test, y_pred_knn)\n",
+        "print(\"K-Nearest Neighbors (KNN):\")\n",
+        "print(f\"Accuracy: {accuracy_knn:.4f}\")\n",
+        "print(f\"Precision: {precision_knn:.4f}\")\n",
+        "print(f\"Recall: {recall_knn:.4f}\")\n",
+        "print(f\"F1 Score: {f1_knn:.4f}\")\n"
+      ],
+      "metadata": {
+        "id": "EsJqfq5S0DMT"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "dt_model = DecisionTreeClassifier(random_state=42)\n",
+        "dt_model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred_dt = dt_model.predict(X_test)\n",
+        "\n",
+        "accuracy_dt = accuracy_score(y_test, y_pred_dt)\n",
+        "precision_dt = precision_score(y_test, y_pred_dt)\n",
+        "recall_dt = recall_score(y_test, y_pred_dt)\n",
+        "f1_dt = f1_score(y_test, y_pred_dt)\n",
+        "\n",
+        "print(\"Decision Tree:\")\n",
+        "print(f\"Accuracy: {accuracy_dt:.4f}\")\n",
+        "print(f\"Precision: {precision_dt:.4f}\")\n",
+        "print(f\"Recall: {recall_dt:.4f}\")\n",
+        "print(f\"F1 Score: {f1_dt:.4f}\")\n"
+      ],
+      "metadata": {
+        "id": "BAtwLS0d0JEv"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "lr_model = LogisticRegression(max_iter=1000, random_state=42)\n",
+        "lr_model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred_lr = lr_model.predict(X_test)\n",
+        "\n",
+        "accuracy_lr = accuracy_score(y_test, y_pred_lr)\n",
+        "precision_lr = precision_score(y_test, y_pred_lr)\n",
+        "recall_lr = recall_score(y_test, y_pred_lr)\n",
+        "f1_lr = f1_score(y_test, y_pred_lr)\n",
+        "\n",
+        "print(\"Logistic Regression:\")\n",
+        "print(f\"Accuracy: {accuracy_lr:.4f}\")\n",
+        "print(f\"Precision: {precision_lr:.4f}\")\n",
+        "print(f\"Recall: {recall_lr:.4f}\")\n",
+        "print(f\"F1 Score: {f1_lr:.4f}\")\n"
+      ],
+      "metadata": {
+        "id": "RorVkR3S0LJL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "OdlNcZEFKBJK"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "from sklearn.model_selection import train_test_split,cross_val_score\n",
+        "from sklearn.feature_selection import VarianceThreshold\n",
+        "from sklearn.preprocessing import LabelEncoder\n",
+        "from imblearn.over_sampling import SMOTE\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, f1_score, precision_score, recall_score\n",
+        "from sklearn.decomposition import PCA\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.linear_model import LogisticRegression\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from xgboost import XGBClassifier\n",
+        "from sklearn.naive_bayes import GaussianNB"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "rf_model = RandomForestClassifier(random_state=42)\n",
+        "rf_model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred_rf = rf_model.predict(X_test)\n",
+        "\n",
+        "accuracy_rf = accuracy_score(y_test, y_pred_rf)\n",
+        "precision_rf = precision_score(y_test, y_pred_rf)\n",
+        "recall_rf = recall_score(y_test, y_pred_rf)\n",
+        "f1_rf = f1_score(y_test, y_pred_rf)\n",
+        "\n",
+        "print(\"Random Forest:\")\n",
+        "print(f\"Accuracy: {accuracy_rf:.4f}\")\n",
+        "print(f\"Precision: {precision_rf:.4f}\")\n",
+        "print(f\"Recall: {recall_rf:.4f}\")\n",
+        "print(f\"F1 Score: {f1_rf:.4f}\")\n"
+      ],
+      "metadata": {
+        "id": "i7TLVN-r0PqK"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "xgb_model = XGBClassifier(eval_metric='logloss', random_state=42)\n",
+        "xgb_model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred_xgb = xgb_model.predict(X_test)\n",
+        "\n",
+        "accuracy_xgb = accuracy_score(y_test, y_pred_xgb)\n",
+        "precision_xgb = precision_score(y_test, y_pred_xgb)\n",
+        "recall_xgb = recall_score(y_test, y_pred_xgb)\n",
+        "f1_xgb = f1_score(y_test, y_pred_xgb)\n",
+        "\n",
+        "print(\"XGBoost:\")\n",
+        "print(f\"Accuracy: {accuracy_xgb:.4f}\")\n",
+        "print(f\"Precision: {precision_xgb:.4f}\")\n",
+        "print(f\"Recall: {recall_xgb:.4f}\")\n",
+        "print(f\"F1 Score: {f1_xgb:.4f}\")\n"
+      ],
+      "metadata": {
+        "id": "TrmBEq4G0T-l"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report\n",
+        "\n",
+        "nb_model = GaussianNB()\n",
+        "nb_model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred_nb = nb_model.predict(X_test)\n",
+        "\n",
+        "accuracy_nb = accuracy_score(y_test, y_pred_nb)\n",
+        "precision_nb = precision_score(y_test, y_pred_nb)\n",
+        "recall_nb = recall_score(y_test, y_pred_nb)\n",
+        "f1_nb = f1_score(y_test, y_pred_nb)\n",
+        "\n",
+        "print(\"Naive Bayes Classifier:\")\n",
+        "print(f\"Accuracy: {accuracy_nb:.4f}\")\n",
+        "print(f\"Precision: {precision_nb:.4f}\")\n",
+        "print(f\"Recall: {recall_nb:.4f}\")\n",
+        "print(f\"F1 Score: {f1_nb:.4f}\")"
+      ],
+      "metadata": {
+        "id": "cI1WlN2S4_US"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "metrics_summary = {\n",
+        "    'Model': ['K-Nearest Neighbors', 'Decision Tree', 'Logistic Regression', 'Random Forest', 'XGBoost','Naive Bayes Classifier'],\n",
+        "    'Accuracy': [accuracy_knn * 100, accuracy_dt * 100, accuracy_lr * 100, accuracy_rf * 100, accuracy_xgb * 100, accuracy_nb * 100],\n",
+        "    'Precision': [precision_knn * 100, precision_dt * 100, precision_lr * 100, precision_rf * 100, precision_xgb * 100 , precision_nb *100],\n",
+        "    'Recall': [recall_knn * 100, recall_dt * 100, recall_lr * 100, recall_rf * 100, recall_xgb * 100 , recall_nb *100],\n",
+        "    'F1 Score': [f1_knn * 100, f1_dt * 100, f1_lr * 100, f1_rf * 100, f1_xgb * 100 , f1_nb *100]\n",
+        "}\n",
+        "metrics_df = pd.DataFrame(metrics_summary)\n",
+        "print(metrics_df)\n",
+        "metrics = ['Accuracy', 'Precision', 'Recall', 'F1 Score']\n",
+        "fig, axes = plt.subplots(2, 2, figsize=(16, 12))\n",
+        "sns.set(style=\"whitegrid\")\n",
+        "\n",
+        "for i, metric in enumerate(metrics):\n",
+        "    sns.barplot(\n",
+        "        x=metric,\n",
+        "        y='Model',\n",
+        "        data=metrics_df,\n",
+        "        ax=axes[i // 2, i % 2],\n",
+        "        hue='Model',\n",
+        "        dodge=False,\n",
+        "        palette=\"viridis\",\n",
+        "        legend=False\n",
+        "    )\n",
+        "    axes[i // 2, i % 2].set_title(f'Comparison of {metric} for Different Models')\n",
+        "    axes[i // 2, i % 2].set_xlim(0, 100)\n",
+        "    for p in axes[i // 2, i % 2].patches:\n",
+        "        width = p.get_width()\n",
+        "        axes[i // 2, i % 2].annotate(f'{width:.2f}%', (width, p.get_y() + p.get_height() / 2),\n",
+        "                                     ha='center', va='center', xytext=(10, 0), textcoords='offset points')\n",
+        "\n",
+        "plt.tight_layout()\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "5VHq4J600q1Z"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "print(\"Original number of features:\", X_resampled.shape[1])\n",
+        "low_variance_filter = VarianceThreshold(threshold=0.01)\n",
+        "X_low_variance = low_variance_filter.fit_transform(X_resampled)\n",
+        "X_low_variance_df = pd.DataFrame(X_low_variance, columns=X_resampled.columns[low_variance_filter.get_support()])\n",
+        "print(\"Number of features after low variance filter:\", X_low_variance_df.shape[1])\n",
+        "correlation_matrix = X_low_variance_df.corr().abs()\n",
+        "upper_triangle = correlation_matrix.where(np.triu(np.ones(correlation_matrix.shape), k=1).astype(bool))\n",
+        "high_correlation_features = [column for column in upper_triangle.columns if any(upper_triangle[column] > 0.9)]\n",
+        "X_high_correlation_filtered_df = X_low_variance_df.drop(columns=high_correlation_features)\n",
+        "print(\"Number of features after removing highly correlated features:\", X_high_correlation_filtered_df.shape[1])\n",
+        "print(\"Removed features:\", high_correlation_features)\n"
+      ],
+      "metadata": {
+        "id": "TarDmkVM0wAI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score\n",
+        "\n",
+        "\n",
+        "def evaluate_models(X, y):\n",
+        "    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n",
+        "\n",
+        "    models = {\n",
+        "        'K-Nearest Neighbors': KNeighborsClassifier(),\n",
+        "        'Decision Tree': DecisionTreeClassifier(random_state=42),\n",
+        "        'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),\n",
+        "        'Random Forest': RandomForestClassifier(random_state=42),\n",
+        "        'XGBoost': XGBClassifier(eval_metric='logloss', random_state=42),\n",
+        "        'Naive Bayes': GaussianNB()\n",
+        "    }\n",
+        "\n",
+        "    results = {\n",
+        "        'Model': [],\n",
+        "        'Accuracy': [],\n",
+        "        'Precision': [],\n",
+        "        'Recall': [],\n",
+        "        'F1 Score': []\n",
+        "    }\n",
+        "\n",
+        "    for name, model in models.items():\n",
+        "        model.fit(X_train, y_train)\n",
+        "        y_pred = model.predict(X_test)\n",
+        "\n",
+        "        results['Model'].append(name)\n",
+        "        results['Accuracy'].append(accuracy_score(y_test, y_pred) * 100)\n",
+        "        results['Precision'].append(precision_score(y_test, y_pred, average='weighted') * 100)\n",
+        "        results['Recall'].append(recall_score(y_test, y_pred, average='weighted') * 100)\n",
+        "        results['F1 Score'].append(f1_score(y_test, y_pred, average='weighted') * 100)\n",
+        "\n",
+        "    return pd.DataFrame(results)\n",
+        "\n",
+        "n_components_list = [5, 7, 9]\n",
+        "metrics_dfs = {}\n",
+        "\n",
+        "\n",
+        "for n_components in n_components_list:\n",
+        "    print(f\"\\n--- Evaluating with n_components = {n_components} ---\")\n",
+        "    X_pca = apply_hybrid_feature_selection(X_resampled, y_resampled, n_components)\n",
+        "    metrics_dfs[n_components] = evaluate_models(X_pca, y_resampled)\n",
+        "\n",
+        "for n_components, metrics_df in metrics_dfs.items():\n",
+        "    print(f\"\\nModel Performance After Feature Selection with n_components = {n_components}:\")\n",
+        "    print(metrics_df)\n",
+        "\n",
+        "\n",
+        "comparison_df = pd.DataFrame({\n",
+        "    'Model': metrics_dfs[5]['Model'],\n",
+        "    'Accuracy_Before': metrics_df['Accuracy'],\n",
+        "    'Accuracy_5': metrics_dfs[5]['Accuracy'],\n",
+        "    'Accuracy_7': metrics_dfs[7]['Accuracy'],\n",
+        "    'Accuracy_9': metrics_dfs[9]['Accuracy'],\n",
+        "    'F1_Before': metrics_df['F1 Score'],\n",
+        "    'F1_5': metrics_dfs[5]['F1 Score'],\n",
+        "    'F1_7': metrics_dfs[7]['F1 Score'],\n",
+        "    'F1_9': metrics_dfs[9]['F1 Score']\n",
+        "})\n",
+        "\n",
+        "print(\"\\nComparison of Model Performance:\")\n",
+        "print(comparison_df)\n"
+      ],
+      "metadata": {
+        "id": "w-IHQdO7CJGd"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "\n",
+        "\n",
+        "accuracy_data = comparison_df[['Model', 'Accuracy_5', 'Accuracy_7', 'Accuracy_9']].melt(id_vars='Model',\n",
+        "                                    value_vars=['Accuracy_5', 'Accuracy_7', 'Accuracy_9'],\n",
+        "                                    var_name='n_components', value_name='Accuracy')\n",
+        "\n",
+        "f1_data = comparison_df[['Model', 'F1_5', 'F1_7', 'F1_9']].melt(id_vars='Model',\n",
+        "                               value_vars=['F1_5', 'F1_7', 'F1_9'],\n",
+        "                               var_name='n_components', value_name='F1 Score')\n",
+        "\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "sns.barplot(x='Model', y='Accuracy', hue='n_components', data=accuracy_data, palette='viridis')\n",
+        "plt.title('Model Accuracy Comparison for Different n_components')\n",
+        "plt.xlabel('Model')\n",
+        "plt.ylabel('Accuracy (%)')\n",
+        "plt.xticks(rotation=45)\n",
+        "plt.tight_layout()\n",
+        "plt.show()\n",
+        "\n",
+        "\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "sns.barplot(x='Model', y='F1 Score', hue='n_components', data=f1_data, palette='viridis')\n",
+        "plt.title('Model F1 Score Comparison for Different n_components')\n",
+        "plt.xlabel('Model')\n",
+        "plt.ylabel('F1 Score (%)')\n",
+        "plt.xticks(rotation=45)\n",
+        "plt.tight_layout()\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "UabPhQSom-PT"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Define the data\n",
+        "comparison_df = pd.DataFrame({\n",
+        "    'Model': [\n",
+        "        'K-Nearest Neighbors', 'Decision Tree', 'Logistic Regression',\n",
+        "        'Random Forest', 'XGBoost', 'Naive Bayes Classifier'\n",
+        "    ],\n",
+        "    'Accuracy_before_PCA': [93.83, 92.59, 96.30, 95.06, 95.06, 95.06],\n",
+        "    'Accuracy_5': [94.44, 93.83, 94.44, 96.91, 93.83, 96.30],\n",
+        "    'Accuracy_7': [95.68, 95.06, 96.91, 96.30, 93.83, 96.30],\n",
+        "    'Accuracy_9': [95.06, 93.83, 95.68, 96.30, 93.83, 95.06],\n",
+        "    'Precision_before_PCA': [96.10, 93.67, 94.12, 93.98, 93.98, 92.94],\n",
+        "    'Precision_5': [94.10, 93.20, 94.40, 96.40, 93.80, 96.00],\n",
+        "    'Precision_7': [95.10, 94.60, 96.50, 95.90, 93.80, 95.90],\n",
+        "    'Precision_9': [94.60, 93.30, 95.70, 96.20, 93.70, 95.00],\n",
+        "    'Recall_before_PCA': [91.36, 91.36, 98.77, 96.30, 96.30, 97.53],\n",
+        "    'Recall_5': [94.60, 91.80, 94.50, 97.10, 93.20, 96.80],\n",
+        "    'Recall_7': [96.40, 95.20, 97.50, 96.20, 93.80, 96.30],\n",
+        "    'Recall_9': [95.70, 92.70, 96.40, 96.30, 93.30, 95.50],\n",
+        "    'F1_before_PCA': [93.67, 92.50, 96.39, 95.12, 95.12, 95.18],\n",
+        "    'F1_5': [94.44, 93.82, 94.44, 96.91, 93.83, 96.30],\n",
+        "    'F1_7': [95.68, 95.06, 96.91, 96.29, 93.83, 96.29],\n",
+        "    'F1_9': [95.06, 93.83, 95.67, 96.29, 93.83, 95.06]\n",
+        "})\n",
+        "\n",
+        "# Reshape data for plotting each metric\n",
+        "accuracy_data = comparison_df[['Model', 'Accuracy_before_PCA', 'Accuracy_5', 'Accuracy_7', 'Accuracy_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Accuracy_before_PCA', 'Accuracy_5', 'Accuracy_7', 'Accuracy_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Accuracy'\n",
+        ")\n",
+        "\n",
+        "precision_data = comparison_df[['Model', 'Precision_before_PCA', 'Precision_5', 'Precision_7', 'Precision_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Precision_before_PCA', 'Precision_5', 'Precision_7', 'Precision_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Precision'\n",
+        ")\n",
+        "\n",
+        "recall_data = comparison_df[['Model', 'Recall_before_PCA', 'Recall_5', 'Recall_7', 'Recall_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Recall_before_PCA', 'Recall_5', 'Recall_7', 'Recall_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Recall'\n",
+        ")\n",
+        "\n",
+        "f1_data = comparison_df[['Model', 'F1_before_PCA', 'F1_5', 'F1_7', 'F1_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['F1_before_PCA', 'F1_5', 'F1_7', 'F1_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='F1 Score'\n",
+        ")\n",
+        "\n",
+        "# Define updated hatch patterns for each PCA setting\n",
+        "hatches = ['/', '\\\\', '*', '-']  # Changed the third pattern from '|' to '*'\n",
+        "\n",
+        "# Plot each metric\n",
+        "fig, axes = plt.subplots(2, 2, figsize=(16, 12))\n",
+        "\n",
+        "# Helper function to apply hatches\n",
+        "def apply_hatch(ax, hatches):\n",
+        "    for bars, hatch in zip(ax.containers, hatches):\n",
+        "        for bar in bars:\n",
+        "            bar.set_hatch(hatch)\n",
+        "\n",
+        "# Accuracy Plot\n",
+        "sns.barplot(x='Model', y='Accuracy', hue='n_components', data=accuracy_data, ax=axes[0, 0])\n",
+        "apply_hatch(axes[0, 0], hatches)\n",
+        "axes[0, 0].set_title('Model Accuracy Comparison Before and After PCA')\n",
+        "axes[0, 0].set_xlabel('Model')\n",
+        "axes[0, 0].set_ylabel('Accuracy (%)')\n",
+        "axes[0, 0].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Precision Plot\n",
+        "sns.barplot(x='Model', y='Precision', hue='n_components', data=precision_data, ax=axes[0, 1])\n",
+        "apply_hatch(axes[0, 1], hatches)\n",
+        "axes[0, 1].set_title('Model Precision Comparison Before and After PCA')\n",
+        "axes[0, 1].set_xlabel('Model')\n",
+        "axes[0, 1].set_ylabel('Precision (%)')\n",
+        "axes[0, 1].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Recall Plot\n",
+        "sns.barplot(x='Model', y='Recall', hue='n_components', data=recall_data, ax=axes[1, 0])\n",
+        "apply_hatch(axes[1, 0], hatches)\n",
+        "axes[1, 0].set_title('Model Recall Comparison Before and After PCA')\n",
+        "axes[1, 0].set_xlabel('Model')\n",
+        "axes[1, 0].set_ylabel('Recall (%)')\n",
+        "axes[1, 0].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# F1 Score Plot\n",
+        "sns.barplot(x='Model', y='F1 Score', hue='n_components', data=f1_data, ax=axes[1, 1])\n",
+        "apply_hatch(axes[1, 1], hatches)\n",
+        "axes[1, 1].set_title('Model F1 Score Comparison Before and After PCA')\n",
+        "axes[1, 1].set_xlabel('Model')\n",
+        "axes[1, 1].set_ylabel('F1 Score (%)')\n",
+        "axes[1, 1].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Add legend with hatch patterns\n",
+        "handles, labels = axes[1, 1].get_legend_handles_labels()\n",
+        "fig.legend(handles, labels, loc='upper center', ncol=4, title='PCA Components')\n",
+        "\n",
+        "plt.tight_layout(rect=[0, 0, 1, 0.96])  # Adjust layout to make room for the legend\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "2QGr-2-QDoo3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "import pandas as pd\n",
+        "import matplotlib.patches as mpatches\n",
+        "\n",
+        "# Define the data\n",
+        "comparison_df = pd.DataFrame({\n",
+        "    'Model': [\n",
+        "        'K-Nearest Neighbors', 'Decision Tree', 'Logistic Regression',\n",
+        "        'Random Forest', 'XGBoost', 'Naive Bayes Classifier'\n",
+        "    ],\n",
+        "    'Accuracy_before_PCA': [93.83, 92.59, 96.30, 95.06, 95.06, 95.06],\n",
+        "    'Accuracy_5': [94.44, 93.83, 94.44, 96.91, 93.83, 96.30],\n",
+        "    'Accuracy_7': [95.68, 95.06, 96.91, 96.30, 93.83, 96.30],\n",
+        "    'Accuracy_9': [95.06, 93.83, 95.68, 96.30, 93.83, 95.06],\n",
+        "    'Precision_before_PCA': [96.10, 93.67, 94.12, 93.98, 93.98, 92.94],\n",
+        "    'Precision_5': [94.10, 93.20, 94.40, 96.40, 93.80, 96.00],\n",
+        "    'Precision_7': [95.10, 94.60, 96.50, 95.90, 93.80, 95.90],\n",
+        "    'Precision_9': [94.60, 93.30, 95.70, 96.20, 93.70, 95.00],\n",
+        "    'Recall_before_PCA': [91.36, 91.36, 98.77, 96.30, 96.30, 97.53],\n",
+        "    'Recall_5': [94.60, 91.80, 94.50, 97.10, 93.20, 96.80],\n",
+        "    'Recall_7': [96.40, 95.20, 97.50, 96.20, 93.80, 96.30],\n",
+        "    'Recall_9': [95.70, 92.70, 96.40, 96.30, 93.30, 95.50],\n",
+        "    'F1_before_PCA': [93.67, 92.50, 96.39, 95.12, 95.12, 95.18],\n",
+        "    'F1_5': [94.44, 93.82, 94.44, 96.91, 93.83, 96.30],\n",
+        "    'F1_7': [95.68, 95.06, 96.91, 96.29, 93.83, 96.29],\n",
+        "    'F1_9': [95.06, 93.83, 95.67, 96.29, 93.83, 95.06]\n",
+        "})\n",
+        "\n",
+        "# Reshape data for plotting each metric\n",
+        "accuracy_data = comparison_df[['Model', 'Accuracy_before_PCA', 'Accuracy_5', 'Accuracy_7', 'Accuracy_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Accuracy_before_PCA', 'Accuracy_5', 'Accuracy_7', 'Accuracy_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Accuracy'\n",
+        ")\n",
+        "\n",
+        "precision_data = comparison_df[['Model', 'Precision_before_PCA', 'Precision_5', 'Precision_7', 'Precision_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Precision_before_PCA', 'Precision_5', 'Precision_7', 'Precision_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Precision'\n",
+        ")\n",
+        "\n",
+        "recall_data = comparison_df[['Model', 'Recall_before_PCA', 'Recall_5', 'Recall_7', 'Recall_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['Recall_before_PCA', 'Recall_5', 'Recall_7', 'Recall_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='Recall'\n",
+        ")\n",
+        "\n",
+        "f1_data = comparison_df[['Model', 'F1_before_PCA', 'F1_5', 'F1_7', 'F1_9']].melt(\n",
+        "    id_vars='Model',\n",
+        "    value_vars=['F1_before_PCA', 'F1_5', 'F1_7', 'F1_9'],\n",
+        "    var_name='n_components',\n",
+        "    value_name='F1 Score'\n",
+        ")\n",
+        "\n",
+        "# Define updated hatch patterns for each PCA setting\n",
+        "hatches = ['/', '\\\\', '*', '-']  # Added hatch pattern for each component setting\n",
+        "\n",
+        "# Plot each metric\n",
+        "fig, axes = plt.subplots(2, 2, figsize=(16, 12))\n",
+        "\n",
+        "# Helper function to apply hatches\n",
+        "def apply_hatch(ax, hatches):\n",
+        "    for bars, hatch in zip(ax.containers, hatches):\n",
+        "        for bar in bars:\n",
+        "            bar.set_hatch(hatch)\n",
+        "\n",
+        "# Accuracy Plot\n",
+        "sns.barplot(x='Model', y='Accuracy', hue='n_components', data=accuracy_data, ax=axes[0, 0])\n",
+        "apply_hatch(axes[0, 0], hatches)\n",
+        "axes[0, 0].set_title('Model Accuracy Comparison Before and After PCA')\n",
+        "axes[0, 0].set_xlabel('Model')\n",
+        "axes[0, 0].set_ylabel('Accuracy (%)')\n",
+        "axes[0, 0].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Precision Plot\n",
+        "sns.barplot(x='Model', y='Precision', hue='n_components', data=precision_data, ax=axes[0, 1])\n",
+        "apply_hatch(axes[0, 1], hatches)\n",
+        "axes[0, 1].set_title('Model Precision Comparison Before and After PCA')\n",
+        "axes[0, 1].set_xlabel('Model')\n",
+        "axes[0, 1].set_ylabel('Precision (%)')\n",
+        "axes[0, 1].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Recall Plot\n",
+        "sns.barplot(x='Model', y='Recall', hue='n_components', data=recall_data, ax=axes[1, 0])\n",
+        "apply_hatch(axes[1, 0], hatches)\n",
+        "axes[1, 0].set_title('Model Recall Comparison Before and After PCA')\n",
+        "axes[1, 0].set_xlabel('Model')\n",
+        "axes[1, 0].set_ylabel('Recall (%)')\n",
+        "axes[1, 0].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# F1 Score Plot\n",
+        "sns.barplot(x='Model', y='F1 Score', hue='n_components', data=f1_data, ax=axes[1, 1])\n",
+        "apply_hatch(axes[1, 1], hatches)\n",
+        "axes[1, 1].set_title('Model F1 Score Comparison Before and After PCA')\n",
+        "axes[1, 1].set_xlabel('Model')\n",
+        "axes[1, 1].set_ylabel('F1 Score (%)')\n",
+        "axes[1, 1].tick_params(axis='x', rotation=45)\n",
+        "\n",
+        "# Define legend with symbols and descriptions\n",
+        "legend_patches = [\n",
+        "    mpatches.Patch(facecolor='C0', hatch='/', label='Before PCA'),\n",
+        "    mpatches.Patch(facecolor='C1', hatch='\\\\', label='PCA - 5 Components'),\n",
+        "    mpatches.Patch(facecolor='C2', hatch='*', label='PCA - 7 Components'),\n",
+        "    mpatches.Patch(facecolor='C3', hatch='-', label='PCA - 9 Components')\n",
+        "]\n",
+        "\n",
+        "# Add legend with symbols in the figure\n",
+        "fig.legend(handles=legend_patches, loc='upper center', ncol=4, title='PCA Components')\n",
+        "\n",
+        "plt.tight_layout(rect=[0, 0, 1, 0.96])  # Adjust layout to make room for the legend\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "KADEXdB197P6"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
